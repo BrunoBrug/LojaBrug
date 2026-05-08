@@ -1,0 +1,30 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Local agent/project context
+AGENTS.md
+
+# Frontend
+node_modules/
+dist/
+build/
+.vite/
+
+# Java
+target/
+.gradle/
+build/
+
+# IDE/editor
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
