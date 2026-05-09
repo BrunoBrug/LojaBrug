@@ -233,6 +233,12 @@ h1 {
   cursor: not-allowed;
 }
 
+.checkout-error {
+  margin: 12px 0 0;
+  color: #8f2f24;
+  line-height: 1.45;
+}
+
 @media (max-width: 640px) {
   .hero {
     padding: 56px 18px 28px;

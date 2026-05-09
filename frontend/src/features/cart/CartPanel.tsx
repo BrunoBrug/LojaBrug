@@ -1,6 +1,7 @@
 import type { CartItem } from "./cartReducer";
 
 type CartPanelProps = {
+  checkoutStatus: "idle" | "loading" | "error";
   items: CartItem[];
   onRemove: (productId: string, option?: string) => void;
   onQuantityChange: (productId: string, option: string | undefined, quantity: number) => void;
@@ -13,6 +14,7 @@ const currencyFormatter = new Intl.NumberFormat("pt-BR", {
 });
 
 export function CartPanel({
+  checkoutStatus,
   items,
   onRemove,
   onQuantityChange,
@@ -63,12 +65,17 @@ export function CartPanel({
       </div>
       <button
         className="checkout-button"
-        disabled={items.length === 0}
+        disabled={items.length === 0 || checkoutStatus === "loading"}
         type="button"
         onClick={onCheckout}
       >
-        Finalizar compra
+        {checkoutStatus === "loading" ? "Abrindo checkout..." : "Finalizar compra"}
       </button>
+      {checkoutStatus === "error" && (
+        <p className="checkout-error" role="alert">
+          Nao foi possivel iniciar o checkout.
+        </p>
+      )}
     </aside>
   );
 }

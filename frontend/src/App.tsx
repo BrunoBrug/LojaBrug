@@ -2,12 +2,14 @@ import { useEffect, useReducer, useState } from "react";
 import "./styles.css";
 import { CartPanel } from "./features/cart/CartPanel";
 import { cartReducer } from "./features/cart/cartReducer";
+import { createCheckout } from "./features/checkout/checkoutApi";
 import { ProductGrid } from "./features/products/ProductGrid";
 import { fetchProducts, type Product } from "./features/products/productsApi";
 
 export function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [checkoutStatus, setCheckoutStatus] = useState<"idle" | "loading" | "error">("idle");
   const [cart, dispatch] = useReducer(cartReducer, { items: [] });
 
   useEffect(() => {
@@ -55,9 +57,17 @@ export function App() {
             onAddToCart={(product) => dispatch({ type: "add", product })}
           />
           <CartPanel
+            checkoutStatus={checkoutStatus}
             items={cart.items}
-            onCheckout={() => {
-              createCheckoutPayload(cart.items);
+            onCheckout={async () => {
+              setCheckoutStatus("loading");
+
+              try {
+                const checkoutUrl = await createCheckout(cart.items);
+                window.location.assign(checkoutUrl);
+              } catch {
+                setCheckoutStatus("error");
+              }
             }}
             onQuantityChange={(productId, option, quantity) =>
               dispatch({ type: "setQuantity", productId, option, quantity })
@@ -71,13 +81,3 @@ export function App() {
 }
 
 export default App;
-
-function createCheckoutPayload(items: { product: Product; quantity: number; option?: string }[]) {
-  return {
-    items: items.map((item) => ({
-      productId: item.product.id,
-      quantity: item.quantity,
-      option: item.option,
-    })),
-  };
-}
