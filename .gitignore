@@ -5,6 +5,8 @@
 
 # Local agent/project context
 AGENTS.md
+.worktrees/
+worktrees/
 
 # Frontend
 node_modules/
