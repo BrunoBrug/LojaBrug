@@ -9,12 +9,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StripeCheckoutSessionClient implements StripeCheckoutClient {
+    private final String secretKey;
+
     public StripeCheckoutSessionClient(@Value("${lojabrug.stripe.secret-key}") String secretKey) {
-        Stripe.apiKey = secretKey;
+        this.secretKey = secretKey;
     }
 
     @Override
     public String createCheckoutUrl(StripeCheckoutRequest request) {
+        if (secretKey == null || secretKey.isBlank()) {
+            throw new IllegalStateException("Stripe secret key nao configurada.");
+        }
+
+        Stripe.apiKey = secretKey;
         SessionCreateParams.Builder params = SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
             .setSuccessUrl(request.successUrl())

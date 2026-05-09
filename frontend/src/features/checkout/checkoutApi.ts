@@ -35,7 +35,7 @@ export async function createCheckout(items: CartItem[]): Promise<string> {
     throw new Error("Resposta de checkout invalida.");
   }
 
-  return data.checkoutUrl;
+  return toSafeCheckoutUrl(data.checkoutUrl);
 }
 
 function toCheckoutItemPayload(item: CartItem): CheckoutItemPayload {
@@ -52,4 +52,14 @@ function isCheckoutResponse(value: unknown): value is CheckoutResponse {
     typeof value === "object" &&
     typeof (value as Record<string, unknown>).checkoutUrl === "string"
   );
+}
+
+function toSafeCheckoutUrl(checkoutUrl: string): string {
+  const url = new URL(checkoutUrl);
+
+  if (url.protocol !== "https:") {
+    throw new Error("URL de checkout invalida.");
+  }
+
+  return url.toString();
 }
