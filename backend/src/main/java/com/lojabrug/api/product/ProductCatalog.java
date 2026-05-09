@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductCatalog {
+    private static final String IMAGE_BASE =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23d9ded2'/%3E%3Ccircle cx='400' cy='460' r='170' fill='%230f6f6b' opacity='.18'/%3E%3Cpath d='M230 690h340' stroke='%23181713' stroke-width='18' stroke-linecap='round' opacity='.45'/%3E%3C/svg%3E";
+
     private final List<Product> products = List.of(
         new Product(
             "camiseta-essencial",
@@ -13,7 +16,7 @@ public class ProductCatalog {
             "Camiseta",
             "Algodao macio com corte limpo.",
             8900,
-            "/products/camiseta-essencial.jpg",
+            IMAGE_BASE,
             List.of("P", "M", "G")
         ),
         new Product(
@@ -22,7 +25,7 @@ public class ProductCatalog {
             "Camiseta",
             "Preta, simples e marcante.",
             9900,
-            "/products/camiseta-noite.jpg",
+            IMAGE_BASE,
             List.of("P", "M", "G")
         ),
         new Product(
@@ -31,7 +34,7 @@ public class ProductCatalog {
             "Pulseira",
             "Metal discreto com presenca.",
             4900,
-            "/products/pulseira-linha.jpg",
+            IMAGE_BASE,
             List.of()
         ),
         new Product(
@@ -40,7 +43,7 @@ public class ProductCatalog {
             "Pulseira",
             "Tom quente para contraste sutil.",
             5400,
-            "/products/pulseira-cobre.jpg",
+            IMAGE_BASE,
             List.of()
         ),
         new Product(
@@ -49,7 +52,7 @@ public class ProductCatalog {
             "Bottom",
             "Detalhe grafico para a peca favorita.",
             1900,
-            "/products/bottom-assinatura.jpg",
+            IMAGE_BASE,
             List.of()
         ),
         new Product(
@@ -58,7 +61,7 @@ public class ProductCatalog {
             "Bottom",
             "Pequeno ponto de luz no look.",
             2200,
-            "/products/bottom-brilho.jpg",
+            IMAGE_BASE,
             List.of()
         )
     );

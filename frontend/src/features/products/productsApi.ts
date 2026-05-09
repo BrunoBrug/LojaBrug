@@ -17,5 +17,30 @@ export async function fetchProducts(): Promise<Product[]> {
     throw new Error("Nao foi possivel carregar os produtos.");
   }
 
-  return response.json();
+  const data: unknown = await response.json();
+
+  if (!Array.isArray(data) || !data.every(isProduct)) {
+    throw new Error("Resposta de produtos invalida.");
+  }
+
+  return data;
+}
+
+function isProduct(value: unknown): value is Product {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const product = value as Record<string, unknown>;
+
+  return (
+    typeof product.id === "string" &&
+    typeof product.name === "string" &&
+    typeof product.category === "string" &&
+    typeof product.description === "string" &&
+    typeof product.priceInCents === "number" &&
+    typeof product.imageUrl === "string" &&
+    Array.isArray(product.options) &&
+    product.options.every((option) => typeof option === "string")
+  );
 }

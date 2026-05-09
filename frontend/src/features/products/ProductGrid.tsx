@@ -14,9 +14,7 @@ export function ProductGrid({ products }: ProductGridProps) {
     <section className="product-grid" aria-label="Produtos">
       {products.map((product) => (
         <article className="product-card" key={product.id}>
-          <div className="product-image" aria-hidden="true">
-            <span>{product.category}</span>
-          </div>
+          <img className="product-image" src={product.imageUrl} alt={product.name} />
           <div className="product-copy">
             <p className="product-category">{product.category}</p>
             <h2>{product.name}</h2>
