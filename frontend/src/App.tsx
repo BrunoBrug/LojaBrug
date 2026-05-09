@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "./styles.css";
+import { CartPanel } from "./features/cart/CartPanel";
+import { cartReducer } from "./features/cart/cartReducer";
 import { ProductGrid } from "./features/products/ProductGrid";
 import { fetchProducts, type Product } from "./features/products/productsApi";
 
 export function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [cart, dispatch] = useReducer(cartReducer, { items: [] });
 
   useEffect(() => {
     let isMounted = true;
@@ -45,7 +48,32 @@ export function App() {
           Nao foi possivel carregar os produtos agora.
         </p>
       )}
-      {status === "ready" && <ProductGrid products={products} />}
+      {status === "ready" && (
+        <section className="commerce-layout">
+          <ProductGrid
+            products={products}
+            onAddToCart={(product) => dispatch({ type: "add", product })}
+          />
+          <CartPanel
+            items={cart.items}
+            onCheckout={() => {
+              const payload = {
+                items: cart.items.map((item) => ({
+                  productId: item.product.id,
+                  quantity: item.quantity,
+                  option: item.option,
+                })),
+              };
+
+              console.info("Checkout payload", payload);
+            }}
+            onQuantityChange={(productId, quantity) =>
+              dispatch({ type: "setQuantity", productId, quantity })
+            }
+            onRemove={(productId) => dispatch({ type: "remove", productId })}
+          />
+        </section>
+      )}
     </main>
   );
 }
