@@ -4,6 +4,7 @@
     sans-serif;
   color: #181713;
   background: #f7f4ee;
+  accent-color: #0f6f6b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -26,7 +27,7 @@ input {
 .app-shell {
   min-height: 100vh;
   background:
-    linear-gradient(90deg, rgba(143, 63, 43, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 111, 107, 0.08) 1px, transparent 1px),
     #f7f4ee;
   background-size: 72px 72px;
 }
@@ -39,7 +40,7 @@ input {
 
 .eyebrow {
   margin: 0 0 18px;
-  color: #8f3f2b;
+  color: #0f6f6b;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0;
