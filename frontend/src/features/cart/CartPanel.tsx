@@ -2,8 +2,8 @@ import type { CartItem } from "./cartReducer";
 
 type CartPanelProps = {
   items: CartItem[];
-  onRemove: (productId: string) => void;
-  onQuantityChange: (productId: string, quantity: number) => void;
+  onRemove: (productId: string, option?: string) => void;
+  onQuantityChange: (productId: string, option: string | undefined, quantity: number) => void;
   onCheckout: () => void;
 };
 
@@ -46,10 +46,10 @@ export function CartPanel({
                 type="number"
                 value={item.quantity}
                 onChange={(event) =>
-                  onQuantityChange(item.product.id, Number(event.currentTarget.value))
+                  onQuantityChange(item.product.id, item.option, Number(event.currentTarget.value))
                 }
               />
-              <button type="button" onClick={() => onRemove(item.product.id)}>
+              <button type="button" onClick={() => onRemove(item.product.id, item.option)}>
                 Remover
               </button>
             </li>

@@ -31,7 +31,7 @@ describe("cartReducer", () => {
   it("removes a product from the cart", () => {
     const state = cartReducer(
       { items: [{ product, option: "M", quantity: 1 }] },
-      { type: "remove", productId: product.id },
+      { type: "remove", productId: product.id, option: "M" },
     );
 
     expect(state.items).toEqual([]);
@@ -40,10 +40,27 @@ describe("cartReducer", () => {
   it("keeps quantity at one or above", () => {
     const state = cartReducer(
       { items: [{ product, option: "M", quantity: 3 }] },
-      { type: "setQuantity", productId: product.id, quantity: 0 },
+      { type: "setQuantity", productId: product.id, option: "M", quantity: 0 },
     );
 
     expect(state.items[0].quantity).toBe(1);
+  });
+
+  it("updates only the matching product option", () => {
+    const state = cartReducer(
+      {
+        items: [
+          { product, option: "P", quantity: 1 },
+          { product, option: "M", quantity: 1 },
+        ],
+      },
+      { type: "setQuantity", productId: product.id, option: "M", quantity: 3 },
+    );
+
+    expect(state.items).toEqual([
+      { product, option: "P", quantity: 1 },
+      { product, option: "M", quantity: 3 },
+    ]);
   });
 });
 

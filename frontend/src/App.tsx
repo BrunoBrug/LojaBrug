@@ -57,20 +57,12 @@ export function App() {
           <CartPanel
             items={cart.items}
             onCheckout={() => {
-              const payload = {
-                items: cart.items.map((item) => ({
-                  productId: item.product.id,
-                  quantity: item.quantity,
-                  option: item.option,
-                })),
-              };
-
-              console.info("Checkout payload", payload);
+              createCheckoutPayload(cart.items);
             }}
-            onQuantityChange={(productId, quantity) =>
-              dispatch({ type: "setQuantity", productId, quantity })
+            onQuantityChange={(productId, option, quantity) =>
+              dispatch({ type: "setQuantity", productId, option, quantity })
             }
-            onRemove={(productId) => dispatch({ type: "remove", productId })}
+            onRemove={(productId, option) => dispatch({ type: "remove", productId, option })}
           />
         </section>
       )}
@@ -79,3 +71,13 @@ export function App() {
 }
 
 export default App;
+
+function createCheckoutPayload(items: { product: Product; quantity: number; option?: string }[]) {
+  return {
+    items: items.map((item) => ({
+      productId: item.product.id,
+      quantity: item.quantity,
+      option: item.option,
+    })),
+  };
+}
