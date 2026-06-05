@@ -7,6 +7,30 @@ import { ProductGrid } from "./features/products/ProductGrid";
 import { fetchProducts, type Product } from "./features/products/productsApi";
 
 export function App() {
+  if (window.location.pathname === "/success") {
+    return (
+      <PaymentReturnPage
+        title="Pagamento aprovado"
+        message="Recebemos a confirmacao da Stripe. Obrigado por comprar na LojaBrug."
+        actionLabel="Voltar para loja"
+      />
+    );
+  }
+
+  if (window.location.pathname === "/cancel") {
+    return (
+      <PaymentReturnPage
+        title="Pagamento cancelado"
+        message="Seu pagamento nao foi concluido. O carrinho pode ser montado novamente na loja."
+        actionLabel="Ver produtos"
+      />
+    );
+  }
+
+  return <Storefront />;
+}
+
+function Storefront() {
   const [products, setProducts] = useState<Product[]>([]);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [checkoutStatus, setCheckoutStatus] = useState<"idle" | "loading" | "error">("idle");
@@ -76,6 +100,27 @@ export function App() {
           />
         </section>
       )}
+    </main>
+  );
+}
+
+type PaymentReturnPageProps = {
+  title: string;
+  message: string;
+  actionLabel: string;
+};
+
+function PaymentReturnPage({ title, message, actionLabel }: PaymentReturnPageProps) {
+  return (
+    <main className="app-shell return-page">
+      <section className="return-content" aria-labelledby="return-title">
+        <p className="eyebrow">LojaBrug</p>
+        <h1 id="return-title">{title}</h1>
+        <p className="lede">{message}</p>
+        <a className="return-link" href="/">
+          {actionLabel}
+        </a>
+      </section>
     </main>
   );
 }

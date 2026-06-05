@@ -239,6 +239,30 @@ h1 {
   line-height: 1.45;
 }
 
+.return-page {
+  display: grid;
+  align-items: center;
+  padding: 48px 24px;
+}
+
+.return-content {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.return-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  margin-top: 28px;
+  border: 1px solid #181713;
+  border-radius: 6px;
+  background: #181713;
+  color: #fffaf1;
+  padding: 0 18px;
+  text-decoration: none;
+}
+
 @media (max-width: 640px) {
   .hero {
     padding: 56px 18px 28px;
