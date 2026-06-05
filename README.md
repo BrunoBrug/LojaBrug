@@ -19,6 +19,12 @@ Nao commit arquivos `.env` nem secrets reais. Use apenas arquivos de exemplo seg
 - Frontend: `frontend/`
 - Backend: `backend/`
 
+## Documentacao De Estudo
+
+- Stripe Checkout: `docs/integrations/stripe-checkout.md`
+- Deploy e CI/CD: `docs/deploy-ci-cd.md`
+- Idempotencia, RabbitMQ, Redis, CQRS e microsservicos: `docs/learning/scaling-patterns.md`
+
 ## Variaveis De Ambiente
 
 ### Backend no Render
@@ -42,3 +48,4 @@ Nunca cole secrets reais em chat, commits, issues ou pull requests. Arquivos
 - O Render Free hospeda a API Spring Boot em `backend/`.
 - O webhook da Stripe deve apontar para `/api/webhooks/stripe` na API do Render.
 - A branch `main` deve exigir pull request e checks de CI antes de merge.
+- O arquivo `vercel.json` define como a Vercel builda e publica o frontend do monorepo.
