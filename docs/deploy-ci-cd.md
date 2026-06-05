@@ -44,7 +44,7 @@ O Render deve conectar ao mesmo repositorio e criar um Web Service para `backend
 Configuracao sugerida:
 
 - Runtime: Java.
-- Build command: `cd backend && ./mvnw clean package -DskipTests`
+- Build command: `cd backend && bash ./mvnw clean package -DskipTests`
 - Start command: `cd backend && java -jar target/api-0.0.1-SNAPSHOT.jar`
 
 Variaveis no Render:
@@ -73,4 +73,3 @@ Copie o signing secret `whsec_...` para `STRIPE_WEBHOOK_SECRET` no Render. Nao c
 Tambem seria possivel fazer deploy da Vercel por GitHub Actions usando `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID`. Para este MVP, a Git integration e mais simples e reduz a quantidade de secrets no GitHub.
 
 Use Actions para deploy somente se voce quiser aprender deploy prebuilt, promocao de preview para producao ou gates mais avancados antes de publicar.
-
